@@ -1,0 +1,44 @@
+{
+  "name": "typescript-node-express-starter",
+  "version": "v0.0.1",
+  "description": "A boilerplate node server app for building services written in TypeScript with nodemon reloading, unit tests and more.",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "start": "node dist/server.js",
+    "test": "jest",
+    "watch-ts": "tsc --watch",
+    "dev": "nodemon"
+  },
+  "keywords": [
+    "TypeScript",
+    "Express",
+    "Node",
+    "Boilerplate",
+    "express-typescript-boilerplate",
+    "expressjs",
+    "starter-kit"
+  ],
+  "author": "Blaine Garrett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blainegarrett/typescript-node-express-starter/issues"
+  },
+  "homepage": "https://github.com/blainegarrett/typescript-node-express-starter#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.0.1",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.0.21",
+    "@types/node": "^12.12.5",
+    "eslint": "^6.6.0",
+    "jest": "^24.9.0",
+    "typescript": "^3.6.4",
+    "ts-node": "^8.5.2"
+  }
+}
