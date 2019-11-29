@@ -2,14 +2,16 @@
   "name": "typescript-node-express-starter",
   "version": "v0.0.1",
   "description": "A boilerplate node server app for building services written in TypeScript with nodemon reloading, unit tests and more.",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "start": "node dist/server.js",
-    "test": "jest",
     "watch-ts": "tsc --watch",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "test": "jest --collectCoverage true",
+    "unit": "jest --testRegex '(?<!integration\\.)test\\.(js|ts)$'",
+    "integration": "jest --testRegex 'integration\\.test\\.(js|ts)$'"
   },
   "keywords": [
     "TypeScript",
@@ -32,7 +34,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/compression": "^1.0.1",
@@ -41,8 +44,10 @@
     "@types/jest": "^24.0.23",
     "@types/morgan": "^1.7.37",
     "@types/node": "^12.12.5",
+    "@types/supertest": "^2.0.8",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
+    "supertest": "^4.0.2",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.2",
     "typescript": "^3.6.4"
