@@ -1,61 +1,67 @@
 // Winston Logger Class
 // https://www.loggly.com/ultimate-guide/node-logging-basics/
+//import expressWinton from "express-winston";
 import winston from "winston";
+const { LoggingWinston } = require("@google-cloud/logging-winston");
 
-/*
-const logger = new winston.createLogger({
-  transports: [
-    new winston.transports.File({
-      level:            'info',
-      filename:         './logs/all-logs.log',
-      handleExceptions: true,
-      json:             true,
-      maxsize:          5242880, //5MB
-      maxFiles:         5,
-      colorize:         false
-    }),
-    new winston.transports.Console({
-      level:            'debug',
-      handleExceptions: true,
-      json:             false,
-      colorize:         true
-    })
-  ],
-  exitOnError: false
-})
+const loggingWinston = new LoggingWinston();
+const SERVICE_NAME = "derpderpderp";
+//console.log(process.env);
 
-logger.stream = {
-  write: function(message, encoding){
-    logger.info(message);
-  }
-};
-app.use(require("morgan")("combined", { "stream": logger.stream }));
-*/
+// For Options see: https://www.npmjs.com/package/express-winston
+// const logger = expressWinton.logger({
+//   baseMeta: { service: SERVICE_NAME },
+//   transports: [
+//     // Console
+//     new winston.transports.Console({
+//       //format: winston.format.simple(),
+//       level: "info",
+//       //format: winston.format.combine(),
+//       format: winston.format.printf(info => {
+//         console.log(info);
+//         return `${new Date().toISOString()}, ${info.message} ${info.service}`;
+//       })
+//     }),
+//     // Add Stackdriver Logging
+//     loggingWinston
+//   ]
+// });
 
 const logger = winston.createLogger({
+  defaultMeta: { service: SERVICE_NAME },
   level: "info",
-  format: winston.format.json(),
-  defaultMeta: { service: "user-service" },
   transports: [
-    //
-    // - Write to all logs with level `info` and below to `combined.log`
-    // - Write all logs error (and below) to `error.log`.
-    //
-    new winston.transports.File({ filename: "error.log", level: "error" }),
-    new winston.transports.File({ filename: "combined.log" })
+    // Console
+    new winston.transports.Console({
+      //format: winston.format.simple(),
+      level: "info",
+      //correlationId: "asdf",
+      handleExceptions: true,
+
+      //format: winston.format.combine(),
+      format: winston.format.printf(info => {
+        console.log(info);
+        return `${new Date().toISOString()}, ${info.message} ${info.service}`;
+      })
+    }),
+    // Add Stackdriver Logging
+    loggingWinston
   ]
 });
 
+// Writes some log entries
+logger.error("fiiiiiish");
+logger.info("ifnoinfofnfonfo");
 //
 // If we're not in production then log to the `console` with the format:
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
-if (process.env.NODE_ENV !== "production") {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.simple()
-    })
-  );
-}
+// if (process.env.NODE_ENV !== "production") {
+//   logger.add(
+//     new winston.transports.Console({
+//       format: winston.format.simple()
+//     })
+//   );
+// }
 
 export default logger;

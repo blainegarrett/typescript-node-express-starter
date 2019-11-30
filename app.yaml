@@ -1,0 +1,7 @@
+runtime: nodejs10
+
+service: api-test
+handlers:
+  - url: /.*
+    secure: always
+    script: auto
